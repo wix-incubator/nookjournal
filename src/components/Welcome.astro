@@ -1,95 +1,486 @@
 ---
-import astroLogo from "../assets/astro.svg";
-import wixLogo from "../assets/wix.svg";
-import background from "../assets/background.svg";
+const departments = [
+  { label: "Issue", href: "#issue" },
+  { label: "Features", href: "#features" },
+  { label: "Pipeline", href: "#pipeline" },
+  { label: "API-ready", href: "#pipeline" },
+];
+
+const stories = [
+  {
+    section: "Field Notes",
+    title: "Designing a calmer publication stack with Wix CMS.",
+    dek: "A lead essay model that can become an Astro route, a newsletter item, and a reusable API response without duplicating editorial work.",
+    meta: "12 min read",
+  },
+  {
+    section: "Guide",
+    title: "From collection item to composed page.",
+    dek: "Nook Journal treats content entries as structured source material for issue pages, topic shelves, and future client apps.",
+    meta: "CMS ready",
+  },
+  {
+    section: "Archive",
+    title: "A searchable backlist for long-lived writing.",
+    dek: "Taxonomies, dates, slugs, authors, and summaries are framed as data first, then presented with a custom editorial voice.",
+    meta: "API ready",
+  },
+];
+
+const workflow = [
+  "Wix-managed project",
+  "Astro server rendering",
+  "CMS-shaped content",
+  "SDK-ready endpoints",
+];
 ---
 
-<div id="container">
-	<img id="background" src={background.src} alt="" fetchpriority="high" />
-	<main>
-		<section id="hero">
-			<div id="logos">
-				<a href="https://dev.wix.com"
-					><img
-						src={wixLogo.src}
-						width="70"
-						alt="Wix Documentation"
-					/></a
-				>
-				<a href="https://astro.build"
-					><img
-						src={astroLogo.src}
-						width="115"
-						alt="Astro Homepage"
-					/></a
-				>
-			</div>
-			<h1>
-				To get started, open the <code><pre>src/pages</pre></code> directory in your
-				project.
-			</h1>
-		</section>
-	</main>
+<div class="site-shell">
+  <header class="masthead">
+    <a href="/" class="brand" aria-label="Nook Journal home">
+      <span class="brand-mark">NJ</span>
+      <span>
+        <strong>Nook Journal</strong>
+        <small>Headless editorial hub</small>
+      </span>
+    </a>
+    <nav aria-label="Sections">
+      {
+        departments.map((department) => (
+          <a href={department.href}>{department.label}</a>
+        ))
+      }
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Wix Headless CMS showcase</p>
+        <h1 id="page-title">A magazine front door for structured content.</h1>
+        <p class="lede">
+          Nook Journal presents Wix-managed content as a refined editorial
+          system: browsable sections, reusable summaries, API-ready entries, and
+          an Astro interface tuned for reading.
+        </p>
+      </div>
+
+      <aside class="issue-card" id="issue" aria-label="Current issue">
+        <div class="issue-topline">
+          <span>Issue 04</span>
+          <span>Spring desk</span>
+        </div>
+        <h2>Objects, places, and the small rituals that keep teams publishing.</h2>
+        <p>
+          A composed issue model for essays, interviews, place guides, and
+          resource lists, ready to be backed by Wix CMS collections.
+        </p>
+        <div class="issue-meta">
+          <span>14 entries</span>
+          <span>4 content types</span>
+          <span>Previewable</span>
+        </div>
+      </aside>
+    </section>
+
+    <section
+      class="story-grid"
+      id="features"
+      aria-label="Featured editorial content"
+    >
+      <article class="lead-story">
+        <p class="eyebrow">Lead feature</p>
+        <h2>Give editors structure without flattening the voice of the site.</h2>
+        <p>
+          The front page is arranged like a working publication: a lead story,
+          section shelves, metadata, summaries, and archive pathways that can
+          all be fed from Wix content collections.
+        </p>
+      </article>
+
+      {
+        stories.map((story) => (
+          <article class="story-card">
+            <div>
+              <p class="section-label">{story.section}</p>
+              <h3>{story.title}</h3>
+            </div>
+            <p>{story.dek}</p>
+            <span>{story.meta}</span>
+          </article>
+        ))
+      }
+    </section>
+
+    <section class="content-system" id="pipeline" aria-labelledby="system-title">
+      <div>
+        <p class="eyebrow">Publishing pipeline</p>
+        <h2 id="system-title">Content stays portable after the page is designed.</h2>
+        <p>
+          The blank Wix Astro starter already brings the managed headless
+          project, Astro routing, and Wix SDK foundation. Nook frames that
+          foundation as an editorial system ready for CMS collection reads.
+        </p>
+      </div>
+      <ol>
+        {
+          workflow.map((item, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              {item}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
 </div>
 
 <style>
-	#background {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-		filter: blur(100px);
-	}
+  :global(*) {
+    box-sizing: border-box;
+  }
 
-	#container {
-		font-family:
-			Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial,
-			sans-serif;
-		height: 100%;
-	}
+  :global(body) {
+    margin: 0;
+    min-width: 320px;
+    background: #f7f7f2;
+    color: #171717;
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+  }
 
-	#logos {
-		display: flex;
-		align-items: center;
-		gap: 2rem;
-	}
+  :global(a) {
+    color: inherit;
+    text-decoration: none;
+  }
 
-	main {
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
+  .site-shell {
+    min-height: 100svh;
+    background:
+      linear-gradient(90deg, rgba(23, 23, 23, 0.055) 1px, transparent 1px),
+      linear-gradient(#f7f7f2, #f0f3f0 54%, #ffffff);
+    background-size: 72px 72px, auto;
+  }
 
-	#hero {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 16px;
-	}
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 1rem clamp(1rem, 4vw, 2rem);
+    border-bottom: 1px solid #1d1d1d;
+  }
 
-	h1 {
-		font-size: 22px;
-		margin-top: 0.25em;
-	}
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
 
-	pre {
-		font-weight: normal;
-		background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		margin: 0;
-	}
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid #171717;
+    background: #f04438;
+    color: #fffdf8;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
 
-	code {
-		display: inline-block;
-		background:
-			linear-gradient(66.77deg, #f3cddd 0%, #f5cee7 100%) padding-box,
-			linear-gradient(155deg, #d83333 0%, #f041ff 18%, #f5cee7 45%) border-box;
-		border-radius: 8px;
-		border: 1px solid transparent;
-		padding: 6px 8px;
-	}
+  .brand strong,
+  .brand small {
+    display: block;
+  }
+
+  .brand strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1rem;
+  }
+
+  .brand small {
+    margin-top: 0.1rem;
+    color: #58605a;
+    font-size: 0.76rem;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.45rem 1rem;
+    color: #4d5550;
+    font-size: 0.86rem;
+  }
+
+  nav a:hover {
+    color: #111;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2rem) 4rem;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.72fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: stretch;
+    min-height: min(760px, calc(100svh - 5rem));
+    padding: clamp(3rem, 8vw, 6.5rem) 0 2rem;
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-bottom: 1px solid #171717;
+    padding-bottom: 2rem;
+  }
+
+  .eyebrow,
+  .section-label {
+    margin: 0;
+    color: #0b7f78;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  h1 {
+    max-width: 12ch;
+    margin-bottom: 1.35rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3.6rem, 10vw, 8.8rem);
+    font-weight: 500;
+    line-height: 0.88;
+    letter-spacing: 0;
+  }
+
+  .lede {
+    max-width: 44rem;
+    margin-bottom: 0;
+    color: #424943;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    line-height: 1.65;
+  }
+
+  .issue-card {
+    align-self: end;
+    border: 1px solid #171717;
+    background: #ffffff;
+    box-shadow: 12px 12px 0 #12b8a6;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .issue-topline,
+  .issue-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: space-between;
+    color: #58605a;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .issue-card h2 {
+    margin: 2.8rem 0 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4vw, 3.7rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .issue-card p {
+    color: #444b45;
+    line-height: 1.7;
+  }
+
+  .issue-meta {
+    border-top: 1px solid #d8ded8;
+    margin-top: 2rem;
+    padding-top: 1rem;
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.15fr repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid #171717;
+    background: #171717;
+  }
+
+  .lead-story,
+  .story-card {
+    background: #fffdf8;
+    padding: clamp(1.25rem, 2.8vw, 2rem);
+  }
+
+  .lead-story {
+    background: #171717;
+    color: #fffdf8;
+  }
+
+  .lead-story .eyebrow {
+    color: #f7c948;
+  }
+
+  .lead-story h2 {
+    margin: 0.65rem 0 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.1rem, 4vw, 4.4rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .lead-story p,
+  .story-card p {
+    margin-bottom: 0;
+    line-height: 1.7;
+  }
+
+  .lead-story p {
+    color: #ddd8cc;
+  }
+
+  .story-card {
+    display: flex;
+    min-height: 24rem;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .story-card h3 {
+    margin: 0.75rem 0 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.45rem, 2.5vw, 2rem);
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .story-card p {
+    color: #485049;
+  }
+
+  .story-card span {
+    width: fit-content;
+    border: 1px solid #171717;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .content-system {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(280px, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    margin-top: clamp(2.5rem, 7vw, 5rem);
+    border-top: 4px solid #171717;
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .content-system h2 {
+    margin: 0.7rem 0 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4.5vw, 4.3rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .content-system p {
+    color: #475048;
+    line-height: 1.7;
+  }
+
+  ol {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #c8d0c8;
+    background: #ffffff;
+    padding: 1rem;
+    font-weight: 750;
+  }
+
+  li span {
+    display: grid;
+    place-items: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    flex: 0 0 auto;
+    background: #f04438;
+    color: #fff;
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .story-grid,
+    .content-system {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      min-height: auto;
+    }
+
+    .story-card {
+      min-height: 18rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .masthead {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    nav {
+      justify-content: flex-start;
+    }
+
+    .hero {
+      padding-top: 2.25rem;
+    }
+
+    .issue-card {
+      box-shadow: 7px 7px 0 #12b8a6;
+    }
+  }
 </style>
