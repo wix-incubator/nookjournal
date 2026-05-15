@@ -6,7 +6,7 @@ This website is powered by Wix Headless and built using [wix-headless.dev](https
 
 ## Links
 
-- Live site: [https://nook-journ-16103d2e-gonenj.wix-site-host.com](https://nook-journ-16103d2e-gonenj.wix-site-host.com)
+- Live site: [https://nookjournal.blog/](https://nookjournal.blog/)
 - Source: [https://github.com/wix-incubator/nookjournal](https://github.com/wix-incubator/nookjournal)
 - Wix site ID: `909bfb07-886f-4451-a042-0d2df40ed592`
 
