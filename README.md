@@ -1,13 +1,33 @@
-# Wix Astro Blank Template
+# Nook Journal
 
-Our Astro templates are still in development and subject to change.
+An editorial publication concept showing how Wix-managed structured content can power a custom Astro reading experience.
 
-To use a template, follow the [Wix CLI for Headless Quick Start](https://dev.wix.com/docs/go-headless/develop-your-project/wix-managed-headless/get-started/quick-start), and select the desired template during the setup process.
+This website is powered by Wix Headless and built using [wix-headless.dev](https://www.wix-headless.dev).
 
-## Need help?
+## Live Site
 
-For documentation and support, check out:
+- [https://nook-journ-16103d2e-gonenj.wix-site-host.com](https://nook-journ-16103d2e-gonenj.wix-site-host.com)
 
-- [Wix Headless Documentation](https://dev.wix.com/docs/go-headless)
-- [Wix SDK Documentation](https://dev.wix.com/docs/sdk)
-- [Community on Discord](https://discord.gg/n6TBrSnYTp)
+## Source
+
+- [https://github.com/wix-incubator/nookjournal](https://github.com/wix-incubator/nookjournal)
+
+## What It Showcases
+
+- Editorial CMS experience built as a custom headless website
+- Wix-managed backend capabilities surfaced through a custom Astro front end
+- Public `llms.txt` and `robots.txt` configured through the Wix SEO txt APIs
+- Deployment with `wix release`
+
+## Local Development
+
+```bash
+yarn install
+yarn dev
+```
+
+## Build
+
+```bash
+yarn build
+```

@@ -1,37 +1,47 @@
 ---
 const departments = [
   { label: "Issue", href: "#issue" },
-  { label: "Features", href: "#features" },
+  { label: "Stories", href: "#stories" },
+  { label: "Models", href: "#models" },
   { label: "Pipeline", href: "#pipeline" },
-  { label: "API-ready", href: "#pipeline" },
 ];
 
 const stories = [
   {
     section: "Field Notes",
     title: "Designing a calmer publication stack with Wix CMS.",
-    dek: "A lead essay model that can become an Astro route, a newsletter item, and a reusable API response without duplicating editorial work.",
+    dek: "A lead essay model that becomes an Astro route, a newsletter item, and a reusable API response without duplicated editorial work.",
     meta: "12 min read",
+    tone: "Essay",
   },
   {
     section: "Guide",
     title: "From collection item to composed page.",
-    dek: "Nook Journal treats content entries as structured source material for issue pages, topic shelves, and future client apps.",
+    dek: "Structured content entries feed issue pages, topic shelves, author blocks, and future client apps from the same source.",
     meta: "CMS ready",
+    tone: "Workflow",
   },
   {
     section: "Archive",
     title: "A searchable backlist for long-lived writing.",
-    dek: "Taxonomies, dates, slugs, authors, and summaries are framed as data first, then presented with a custom editorial voice.",
+    dek: "Taxonomies, dates, slugs, authors, and summaries stay data first, then take on the voice of the front end.",
     meta: "API ready",
+    tone: "Reference",
   },
 ];
 
+const models = [
+  { name: "Essay", fields: "Title, dek, body, author, series" },
+  { name: "Place Guide", fields: "Map note, gallery, coordinates, credits" },
+  { name: "Interview", fields: "Speaker, transcript, pull quotes, audio" },
+  { name: "Resource List", fields: "Links, tags, summaries, update date" },
+];
+
 const workflow = [
-  "Wix-managed project",
-  "Astro server rendering",
-  "CMS-shaped content",
-  "SDK-ready endpoints",
+  "Editors shape entries in Wix CMS",
+  "Astro renders issue and story routes",
+  "Metadata feeds shelves and archive views",
+  "SDK-ready data can power companion apps",
 ];
 ---
 
@@ -61,8 +71,12 @@ const workflow = [
         <p class="lede">
           Nook Journal presents Wix-managed content as a refined editorial
           system: browsable sections, reusable summaries, API-ready entries, and
-          an Astro interface tuned for reading.
+          an Astro interface tuned for slow reading.
         </p>
+        <div class="hero-actions" aria-label="Nook Journal actions">
+          <a href="#stories" class="primary-link">Read the issue</a>
+          <a href="#models" class="secondary-link">Inspect models</a>
+        </div>
       </div>
 
       <aside class="issue-card" id="issue" aria-label="Current issue">
@@ -70,12 +84,12 @@ const workflow = [
           <span>Issue 04</span>
           <span>Spring desk</span>
         </div>
-        <h2>Objects, places, and the small rituals that keep teams publishing.</h2>
+        <h2>Objects, places, and the rituals that keep teams publishing.</h2>
         <p>
           A composed issue model for essays, interviews, place guides, and
           resource lists, ready to be backed by Wix CMS collections.
         </p>
-        <div class="issue-meta">
+        <div class="issue-proof">
           <span>14 entries</span>
           <span>4 content types</span>
           <span>Previewable</span>
@@ -83,16 +97,40 @@ const workflow = [
       </aside>
     </section>
 
+    <section class="editor-desk" aria-label="Editorial command desk">
+      <div class="desk-card desk-feature">
+        <p class="eyebrow">Editor preview</p>
+        <h2>Structure behind the quiet page.</h2>
+        <p>
+          A headless build lets the publication keep the editorial experience in
+          Wix while the site expresses its own pacing, typography, and archive
+          behavior.
+        </p>
+      </div>
+      <div class="desk-card note-card">
+        <span>Draft</span>
+        <strong>Story route generated from slug</strong>
+      </div>
+      <div class="desk-card note-card warm">
+        <span>Index</span>
+        <strong>Topic shelves hydrated from metadata</strong>
+      </div>
+      <div class="desk-card note-card dark">
+        <span>API</span>
+        <strong>Same entry ready for companion products</strong>
+      </div>
+    </section>
+
     <section
       class="story-grid"
-      id="features"
+      id="stories"
       aria-label="Featured editorial content"
     >
       <article class="lead-story">
         <p class="eyebrow">Lead feature</p>
         <h2>Give editors structure without flattening the voice of the site.</h2>
         <p>
-          The front page is arranged like a working publication: a lead story,
+          The front page behaves like a working publication: a lead story,
           section shelves, metadata, summaries, and archive pathways that can
           all be fed from Wix content collections.
         </p>
@@ -106,10 +144,36 @@ const workflow = [
               <h3>{story.title}</h3>
             </div>
             <p>{story.dek}</p>
-            <span>{story.meta}</span>
+            <div class="story-meta">
+              <span>{story.meta}</span>
+              <em>{story.tone}</em>
+            </div>
           </article>
         ))
       }
+    </section>
+
+    <section class="model-section" id="models" aria-labelledby="models-title">
+      <div class="section-intro">
+        <p class="eyebrow">Content models</p>
+        <h2 id="models-title">Editorial pieces become portable objects.</h2>
+        <p>
+          Nook uses the starter foundation to show how Wix CMS fields can
+          become page sections, archive filters, card summaries, and API-ready
+          payloads.
+        </p>
+      </div>
+      <div class="model-grid">
+        {
+          models.map((model, index) => (
+            <article>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{model.name}</h3>
+              <p>{model.fields}</p>
+            </article>
+          ))
+        }
+      </div>
     </section>
 
     <section class="content-system" id="pipeline" aria-labelledby="system-title">
@@ -134,6 +198,10 @@ const workflow = [
       </ol>
     </section>
   </main>
+  <footer class="site-credit">
+    <span>Powered by Wix Headless | Built with <a href="https://www.wix-headless.dev" target="_blank" rel="noreferrer">wix-headless.dev</a></span>
+    <a href="https://github.com/wix-incubator/nookjournal" target="_blank" rel="noreferrer">View source on GitHub</a>
+  </footer>
 </div>
 
 <style>
@@ -144,7 +212,7 @@ const workflow = [
   :global(body) {
     margin: 0;
     min-width: 320px;
-    background: #f7f7f2;
+    background: #f7f3ea;
     color: #171717;
     font-family:
       Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -160,19 +228,25 @@ const workflow = [
     min-height: 100svh;
     background:
       linear-gradient(90deg, rgba(23, 23, 23, 0.055) 1px, transparent 1px),
-      linear-gradient(#f7f7f2, #f0f3f0 54%, #ffffff);
-    background-size: 72px 72px, auto;
+      linear-gradient(rgba(23, 23, 23, 0.04) 1px, transparent 1px),
+      linear-gradient(135deg, #f8f3e8 0%, #eff6f2 58%, #ffffff 100%);
+    background-size: 76px 76px, 76px 76px, auto;
   }
 
   .masthead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    max-width: 1180px;
+    max-width: 1220px;
     margin: 0 auto;
     padding: 1rem clamp(1rem, 4vw, 2rem);
-    border-bottom: 1px solid #1d1d1d;
+    border-bottom: 1px solid rgba(23, 23, 23, 0.86);
+    background: rgba(248, 243, 232, 0.88);
+    backdrop-filter: blur(18px);
   }
 
   .brand {
@@ -184,13 +258,14 @@ const workflow = [
   .brand-mark {
     display: grid;
     place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.9rem;
+    height: 2.9rem;
     border: 1px solid #171717;
-    background: #f04438;
+    background: #d34832;
     color: #fffdf8;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 0.04em;
+    box-shadow: 5px 5px 0 #171717;
   }
 
   .brand strong,
@@ -200,12 +275,13 @@ const workflow = [
 
   .brand strong {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.1rem;
+    font-size: 1.14rem;
+    font-weight: 600;
   }
 
   .brand small {
-    margin-top: 0.1rem;
-    color: #58605a;
+    margin-top: 0.12rem;
+    color: #59635c;
     font-size: 0.76rem;
   }
 
@@ -216,27 +292,31 @@ const workflow = [
     gap: 0.45rem 1rem;
     color: #4d5550;
     font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  nav a {
+    text-underline-offset: 0.25rem;
   }
 
   nav a:hover {
     color: #111;
     text-decoration: underline;
-    text-underline-offset: 0.25rem;
   }
 
   main {
-    max-width: 1180px;
+    max-width: 1220px;
     margin: 0 auto;
     padding: 0 clamp(1rem, 4vw, 2rem) 4rem;
   }
 
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.72fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.78fr);
     gap: clamp(1.5rem, 4vw, 3rem);
     align-items: stretch;
-    min-height: min(760px, calc(100svh - 5rem));
-    padding: clamp(3rem, 8vw, 6.5rem) 0 2rem;
+    min-height: min(790px, calc(100svh - 4rem));
+    padding: clamp(3.5rem, 8vw, 7rem) 0 2.25rem;
   }
 
   .hero-copy {
@@ -244,15 +324,15 @@ const workflow = [
     flex-direction: column;
     justify-content: flex-end;
     border-bottom: 1px solid #171717;
-    padding-bottom: 2rem;
+    padding-bottom: 2.25rem;
   }
 
   .eyebrow,
   .section-label {
     margin: 0;
-    color: #0b7f78;
+    color: #087a71;
     font-size: 0.76rem;
-    font-weight: 800;
+    font-weight: 850;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
@@ -272,32 +352,75 @@ const workflow = [
 
   h1 {
     max-width: 12ch;
-    margin-bottom: 1.35rem;
+    margin: 1rem 0 1.35rem;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(3.6rem, 10vw, 8.8rem);
+    font-size: clamp(3.7rem, 10vw, 9rem);
     font-weight: 500;
     line-height: 0.88;
     letter-spacing: 0;
   }
 
   .lede {
-    max-width: 44rem;
+    max-width: 45rem;
     margin-bottom: 0;
-    color: #424943;
-    font-size: clamp(1.05rem, 2vw, 1.35rem);
-    line-height: 1.65;
+    color: #3f4842;
+    font-size: clamp(1.06rem, 2vw, 1.35rem);
+    line-height: 1.68;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .primary-link,
+  .secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border: 1px solid #171717;
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    font-weight: 850;
+  }
+
+  .primary-link {
+    background: #171717;
+    color: #fffdf8;
+    box-shadow: 5px 5px 0 #12a99d;
+  }
+
+  .secondary-link {
+    background: #fffdf8;
+    color: #171717;
   }
 
   .issue-card {
+    position: relative;
     align-self: end;
+    overflow: hidden;
     border: 1px solid #171717;
-    background: #ffffff;
-    box-shadow: 12px 12px 0 #12b8a6;
-    padding: clamp(1.25rem, 3vw, 2rem);
+    background:
+      linear-gradient(90deg, rgba(23, 23, 23, 0.05) 1px, transparent 1px),
+      #fffdf8;
+    background-size: 18px 18px;
+    box-shadow: 14px 14px 0 #12a99d;
+    padding: clamp(1.25rem, 3vw, 2.1rem);
+  }
+
+  .issue-card::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 0.5rem;
+    content: "";
+    background: linear-gradient(90deg, #d34832, #f1bb45, #12a99d);
   }
 
   .issue-topline,
-  .issue-meta {
+  .issue-proof {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1rem;
@@ -309,27 +432,100 @@ const workflow = [
   }
 
   .issue-card h2 {
-    margin: 2.8rem 0 1rem;
+    margin: 3rem 0 1rem;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2rem, 4vw, 3.7rem);
+    font-size: clamp(2.1rem, 4vw, 3.8rem);
     font-weight: 500;
     line-height: 0.98;
   }
 
   .issue-card p {
-    color: #444b45;
-    line-height: 1.7;
+    color: #414942;
+    line-height: 1.72;
   }
 
-  .issue-meta {
+  .issue-proof {
     border-top: 1px solid #d8ded8;
     margin-top: 2rem;
     padding-top: 1rem;
   }
 
+  .editor-desk {
+    display: grid;
+    grid-template-columns: 1.2fr repeat(3, minmax(0, 0.72fr));
+    gap: 1px;
+    margin-bottom: 1rem;
+    border: 1px solid #171717;
+    background: #171717;
+  }
+
+  .desk-card {
+    min-height: 12rem;
+    background: #fffdf8;
+    padding: clamp(1.15rem, 2.6vw, 1.8rem);
+  }
+
+  .desk-feature {
+    background: #171717;
+    color: #fffdf8;
+  }
+
+  .desk-feature .eyebrow {
+    color: #f1bb45;
+  }
+
+  .desk-feature h2,
+  .section-intro h2 {
+    margin: 0.65rem 0 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .desk-feature p {
+    max-width: 40rem;
+    margin-bottom: 0;
+    color: rgba(255, 253, 248, 0.72);
+    line-height: 1.7;
+  }
+
+  .note-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #e6f3ef;
+  }
+
+  .note-card.warm {
+    background: #f6e0b2;
+  }
+
+  .note-card.dark {
+    background: #d34832;
+    color: #fffdf8;
+  }
+
+  .note-card span {
+    color: currentColor;
+    font-size: 0.75rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .note-card strong {
+    max-width: 14rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.45rem, 3vw, 2.2rem);
+    font-weight: 500;
+    line-height: 1;
+  }
+
   .story-grid {
     display: grid;
-    grid-template-columns: 1.15fr repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1.12fr repeat(3, minmax(0, 1fr));
     gap: 1px;
     border: 1px solid #171717;
     background: #171717;
@@ -347,7 +543,7 @@ const workflow = [
   }
 
   .lead-story .eyebrow {
-    color: #f7c948;
+    color: #f1bb45;
   }
 
   .lead-story h2 {
@@ -358,69 +554,113 @@ const workflow = [
     line-height: 0.98;
   }
 
-  .lead-story p,
-  .story-card p {
+  .lead-story p:last-child {
     margin-bottom: 0;
+    color: rgba(255, 253, 248, 0.68);
     line-height: 1.7;
-  }
-
-  .lead-story p {
-    color: #ddd8cc;
   }
 
   .story-card {
     display: flex;
-    min-height: 24rem;
+    min-height: 22rem;
     flex-direction: column;
     justify-content: space-between;
-    gap: 2rem;
   }
 
   .story-card h3 {
-    margin: 0.75rem 0 0;
+    margin: 0.8rem 0 0;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.45rem, 2.5vw, 2rem);
+    font-size: clamp(1.65rem, 3vw, 2.45rem);
     font-weight: 500;
-    line-height: 1.05;
+    line-height: 1;
   }
 
   .story-card p {
-    color: #485049;
+    color: #4c554e;
+    line-height: 1.68;
   }
 
-  .story-card span {
-    width: fit-content;
-    border: 1px solid #171717;
-    padding: 0.35rem 0.55rem;
-    font-size: 0.78rem;
-    font-weight: 700;
+  .story-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-top: 1px solid #d8ded8;
+    padding-top: 1rem;
+    color: #171717;
+    font-size: 0.82rem;
+    font-weight: 850;
     text-transform: uppercase;
   }
 
+  .story-meta em {
+    color: #087a71;
+    font-style: normal;
+  }
+
+  .model-section,
   .content-system {
     display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(280px, 1fr);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: clamp(1.5rem, 4vw, 3rem);
-    align-items: start;
-    margin-top: clamp(2.5rem, 7vw, 5rem);
-    border-top: 4px solid #171717;
-    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    margin-top: 1rem;
+    border: 1px solid #171717;
+    background: #fffdf8;
+    padding: clamp(1.25rem, 4vw, 2.4rem);
+  }
+
+  .section-intro p:last-child,
+  .content-system p {
+    color: #48524b;
+    line-height: 1.7;
+  }
+
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: #171717;
+    border: 1px solid #171717;
+  }
+
+  .model-grid article {
+    min-height: 12rem;
+    background: #f8f3e8;
+    padding: 1.15rem;
+  }
+
+  .model-grid span {
+    color: #d34832;
+    font-weight: 900;
+  }
+
+  .model-grid h3 {
+    margin: 2rem 0 0.6rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  .model-grid p {
+    margin-bottom: 0;
+    color: #4b544e;
+    line-height: 1.55;
+  }
+
+  .content-system {
+    margin-top: 1rem;
+    background: #e6f3ef;
   }
 
   .content-system h2 {
-    margin: 0.7rem 0 1rem;
+    margin: 0.65rem 0 1rem;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2rem, 4.5vw, 4.3rem);
+    font-size: clamp(2rem, 4vw, 4.2rem);
     font-weight: 500;
     line-height: 0.98;
   }
 
-  .content-system p {
-    color: #475048;
-    line-height: 1.7;
-  }
-
-  ol {
+  .content-system ol {
     display: grid;
     gap: 0.75rem;
     margin: 0;
@@ -428,45 +668,65 @@ const workflow = [
     list-style: none;
   }
 
-  li {
-    display: flex;
-    align-items: center;
+  .content-system li {
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 1rem;
-    border: 1px solid #c8d0c8;
-    background: #ffffff;
+    align-items: center;
+    border: 1px solid #171717;
+    background: #fffdf8;
     padding: 1rem;
-    font-weight: 750;
+    color: #171717;
+    font-weight: 800;
   }
 
-  li span {
+  .site-credit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    max-width: 1220px;
+    margin: 0 auto;
+    border-top: 1px solid #171717;
+    padding: 1.5rem clamp(1rem, 4vw, 2rem) 2rem;
+    color: #48524b;
+    font-size: 0.88rem;
+    font-weight: 850;
+  }
+
+  .site-credit a {
+    color: #087a71;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+
+  .content-system li span {
     display: grid;
     place-items: center;
-    width: 2.35rem;
-    height: 2.35rem;
-    flex: 0 0 auto;
-    background: #f04438;
-    color: #fff;
-    font-size: 0.78rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: #171717;
+    color: #fffdf8;
+    font-size: 0.75rem;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1020px) {
     .hero,
+    .editor-desk,
     .story-grid,
+    .model-section,
     .content-system {
       grid-template-columns: 1fr;
     }
 
-    .hero {
-      min-height: auto;
-    }
-
-    .story-card {
-      min-height: 18rem;
+    .issue-card {
+      align-self: stretch;
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .masthead {
+      position: static;
       align-items: flex-start;
       flex-direction: column;
     }
@@ -476,11 +736,20 @@ const workflow = [
     }
 
     .hero {
-      padding-top: 2.25rem;
+      min-height: auto;
+      padding-top: 3rem;
     }
 
-    .issue-card {
-      box-shadow: 7px 7px 0 #12b8a6;
+    .hero-copy {
+      justify-content: flex-start;
+    }
+
+    h1 {
+      font-size: clamp(3.2rem, 18vw, 5rem);
+    }
+
+    .model-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
